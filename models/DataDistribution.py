@@ -12,7 +12,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # ========== 读取数据 ==========
 print("Loading data...")
-data = pd.read_csv("REAL_biochar_adsorption_ECs_mapped.csv")
+data = pd.read_csv("../data/Data.csv")
 
 feature_columns = [
     'SA (m2/g)', 'Dav (nm)', 'VTot (cm3/g)', 'C (wt%)',
@@ -66,7 +66,7 @@ for idx, col in enumerate(feature_columns):
     ax.set_ylim(bottom=0)
 
 plt.tight_layout()
-plt.savefig('data_distribution_comparison_5x2.png', dpi=300, bbox_inches='tight')
+plt.savefig('../figures/data_distribution_comparison_5x2.png', dpi=300, bbox_inches='tight')
 print("✓ 5×2 distribution comparison plot saved as: data_distribution_comparison_5x2.png")
 plt.show()
 
