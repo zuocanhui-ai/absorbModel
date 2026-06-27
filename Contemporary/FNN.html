@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNN - Feedforward Neural Network Architecture</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .neuron {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .neuron:hover circle {
+            fill: #ff6b6b;
+            r: 22;
+        }
+        
+        .connection {
+            stroke: #bbb;
+            stroke-width: 1.5;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .connection:hover {
+            stroke: #667eea;
+            stroke-width: 2.5;
+            opacity: 1;
+        }
+        
+        .layer-label {
+            font-size: 16px;
+            font-weight: bold;
+            fill: #333;
+        }
+        
+        .neuron-label {
+            font-size: 12px;
+            fill: #666;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .legend h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .legend-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .legend-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .input-color { background: #4ecdc4; }
+        .hidden-color { background: #667eea; }
+        .output-color { background: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feedforward Neural Network (FNN) Architecture</h1>
+        <div class="subtitle">Multi-Layer Perceptron Structure Visualization</div>
+        
+        <svg id="network" width="1000" height="600"></svg>
+        
+        <div class="legend">
+            <h3>Architecture Overview</h3>
+            <div class="legend-item">
+                <div class="legend-circle input-color"></div>
+                <span><strong>Input Layer:</strong> Receives raw feature data, 3 input nodes in this example</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle hidden-color"></div>
+                <span><strong>Hidden Layers:</strong> Perform feature extraction and transformation, 2 hidden layers with 5 and 4 nodes</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle output-color"></div>
+                <span><strong>Output Layer:</strong> Produces final predictions, 2 output nodes in this example</span>
+            </div>
+            <div style="margin-top: 15px; color: #666; font-size: 14px;">
+                <p><strong>How it works:</strong> Information flows unidirectionally from left to right. Each connection has a weight, and each neuron applies an activation function for non-linear transformation.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const svg = document.getElementById('network');
+        const width = 1000;
+        const height = 600;
+        
+        // Define network structure
+        const layers = [
+            { name: 'Input Layer', count: 3, color: '#4ecdc4', x: 150 },
+            { name: 'Hidden Layer 1', count: 5, color: '#667eea', x: 350 },
+            { name: 'Hidden Layer 2', count: 4, color: '#764ba2', x: 550 },
+            { name: 'Output Layer', count: 2, color: '#ff6b6b', x: 750 }
+        ];
+        
+        const neurons = [];
+        const neuronRadius = 20;
+        
+        // Create neuron positions
+        layers.forEach((layer, layerIndex) => {
+            const layerNeurons = [];
+            const spacing = height / (layer.count + 1);
+            
+            for (let i = 0; i < layer.count; i++) {
+                layerNeurons.push({
+                    x: layer.x,
+                    y: spacing * (i + 1),
+                    color: layer.color,
+                    layer: layerIndex
+                });
+            }
+            neurons.push(layerNeurons);
+        });
+        
+        // Draw connections
+        for (let l = 0; l < neurons.length - 1; l++) {
+            neurons[l].forEach(neuron1 => {
+                neurons[l + 1].forEach(neuron2 => {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', neuron1.x);
+                    line.setAttribute('y1', neuron1.y);
+                    line.setAttribute('x2', neuron2.x);
+                    line.setAttribute('y2', neuron2.y);
+                    line.setAttribute('class', 'connection');
+                    svg.appendChild(line);
+                });
+            });
+        }
+        
+        // Draw neurons
+        neurons.forEach((layer, layerIndex) => {
+            layer.forEach((neuron, neuronIndex) => {
+                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                g.setAttribute('class', 'neuron');
+                
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', neuron.x);
+                circle.setAttribute('cy', neuron.y);
+                circle.setAttribute('r', neuronRadius);
+                circle.setAttribute('fill', neuron.color);
+                circle.setAttribute('stroke', '#333');
+                circle.setAttribute('stroke-width', '2');
+                
+                g.appendChild(circle);
+                svg.appendChild(g);
+            });
+        });
+        
+        // Add layer labels
+        layers.forEach((layer, index) => {
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', layer.x);
+            text.setAttribute('y', 50);
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('class', 'layer-label');
+            text.textContent = layer.name;
+            svg.appendChild(text);
+            
+            // Add node count label
+            const countText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            countText.setAttribute('x', layer.x);
+            countText.setAttribute('y', height - 30);
+            countText.setAttribute('text-anchor', 'middle');
+            countText.setAttribute('class', 'neuron-label');
+            countText.textContent = `${layer.count} nodes`;
+            svg.appendChild(countText);
+        });
+        
+        // Add arrow to indicate data flow
+        const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        arrow.innerHTML = `
+            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <polygon points="0 0, 10 3, 0 6" fill="#666" />
+            </marker>
+        `;
+        svg.insertBefore(arrow, svg.firstChild);
+        
+        // Add data flow direction arrows
+        for (let i = 0; i < layers.length - 1; i++) {
+            const arrowLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            arrowLine.setAttribute('x1', layers[i].x + 80);
+            arrowLine.setAttribute('y1', 65);
+            arrowLine.setAttribute('x2', layers[i + 1].x - 80);
+            arrowLine.setAttribute('y2', 65);
+            arrowLine.setAttribute('stroke', '#666');
+            arrowLine.setAttribute('stroke-width', '2');
+            arrowLine.setAttribute('marker-end', 'url(#arrowhead)');
+            svg.appendChild(arrowLine);
+        }
+    </script>
+</body>
+</html>
