@@ -1,5 +1,5 @@
 # model_comparison_r2_scatter.py - 9个模型的R²散点图对比（3×3布局）
-# 所有模型使用 REAL_biochar_adsorption_ECs_mapped.csv
+# 所有模型使用 Data.csv
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -15,8 +15,8 @@ plt.rcParams['font.family'] = 'DejaVu Sans'
 plt.rcParams['axes.unicode_minus'] = False
 
 # ========== 数据加载和预处理 ==========
-print("Loading dataset (REAL_biochar_adsorption_ECs_mapped.csv)...")
-data = pd.read_csv("../data/Data_1267.csv")
+print("Loading dataset (Data.csv)...")
+data = pd.read_csv("../data/Data.csv")
 
 feature_columns = [
     'SA (m2/g)', 'Dav (nm)', 'VTot (cm3/g)', 'C (wt%)',
@@ -316,7 +316,7 @@ for model_name in predictions.keys():
     y_pred = predictions[model_name]
     y_true = true_values[model_name]
     r2 = r2_score(y_true, y_pred)
-    dataset_info = " (REAL_biochar_adsorption_ECs_mapped.csv)"
+    dataset_info = " (Data.csv)"
     print(f"{model_name:25s}: R² = {r2:.4f}{dataset_info}")
 print("=" * 70)
 

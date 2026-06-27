@@ -19,7 +19,7 @@ This repository provides the code and datasets for predicting uranium adsorption
 .
 ├── data/                                        # Datasets
 │   ├── REAL_biochar_adsorption_ECs_mapped.csv   # Full dataset with metadata columns
-│   ├── Data_1267.csv                            # Extended dataset (3630 samples)
+│   ├── Data_1267.csv                            # Archived dataset (not used)
 │   └── Data.csv                                 # Curated dataset (1993 samples)
 ├── models/                                      # All model scripts
 │   ├── Mamba_dropout_improved.py                # ★ Primary model (Mamba + Dropout)
@@ -32,7 +32,7 @@ This repository provides the code and datasets for predicting uranium adsorption
 │   ├── Decsion_tree_improved.py                 # Decision Tree
 │   ├── RegressionModel.py                       # Linear Regression
 │   ├── Decsion_prediction.py                    # DT prediction export
-│   ├── Model_comparsion.py                      # 9-model comparison (Data_1267)
+│   ├── Model_comparsion.py                      # 9-model comparison (Data.csv)
 │   └── Model_comparsion_2data.py                # 9-model comparison (Data.csv)
 │   └── DataDistribution.py                      # Feature distribution visualization
 ├── figures/                                     # Generated figures
@@ -68,7 +68,7 @@ This repository provides the code and datasets for predicting uranium adsorption
 | File | Samples | Extra Columns | Used In |
 |------|---------|---------------|---------|
 | `Data.csv` | 1,993 | — | Model comparison (Fig. in manuscript) |
-| `Data_1267.csv` | 3,630 | — | Extended comparison |
+| `Data_1267.csv` | 3,630 | — | Archived (not used in manuscript) |
 | `REAL_biochar_adsorption_ECs_mapped.csv` | 2,021 | Adsorbent, Pollutant | Individual model training |
 
 The dataset used in the manuscript is **`Data.csv`**.
@@ -155,7 +155,7 @@ Generate the 3×3 R² scatter plot comparing all 9 models:
 # Using Data.csv (manusure dataset)
 python models/Model_comparsion_2data.py
 
-# Using Data_1267.csv (extended dataset)
+# Using Data.csv
 python models/Model_comparsion.py
 ```
 

@@ -16,7 +16,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # ========== 数据加载和预处理 ==========
 print("Loading dataset (REAL_biochar_adsorption_ECs_mapped.csv)...")
-data = pd.read_csv("Data_1267.csv")
+data = pd.read_csv("Data.csv")
 
 feature_columns = [
     'SA (m2/g)', 'Dav (nm)', 'VTot (cm3/g)', 'C (wt%)',
