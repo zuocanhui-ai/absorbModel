@@ -68,7 +68,6 @@ This repository provides the code and datasets for predicting uranium adsorption
 | File | Samples | Extra Columns | Used In |
 |------|---------|---------------|---------|
 | `Data.csv` | 1,993 | — | Model comparison (Fig. in manuscript) |
-| `Data_1267.csv` | 3,630 | — | Archived (not used in manuscript) |
 | `REAL_biochar_adsorption_ECs_mapped.csv` | 2,021 | Adsorbent, Pollutant | Individual model training |
 
 The dataset used in the manuscript is **`Data.csv`**.
