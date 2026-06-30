@@ -144,19 +144,7 @@ python models/Decsion_tree_improved.py
 python models/RegressionModel.py
 python models/Mamba_attention.py
 python models/FNN_attention_improved.py
-```
 
-## Model Comparison
-
-Generate the 3×3 R² scatter plot comparing all 9 models:
-
-```bash
-# Using Data.csv (manusure dataset)
-python models/Model_comparsion_2data.py
-
-# Using Data.csv
-python models/Model_comparsion.py
-```
 
 Output: `figures/model_comparison_r2_scatter_3x3.png`
 
